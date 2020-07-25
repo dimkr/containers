@@ -3,4 +3,4 @@ FROM dimkr/c-dev:slim
 ENV GOPATH /go
 ENV PATH $PATH:/usr/local/go/bin:$GOPATH/bin
 
-RUN apt-get -qq update && apt-get install wget && wget -qO- `wget -qO- https://golang.org/dl/ | grep -m 1 linux-amd64 | cut -f 4 -d \"` | tar -C /usr/local -xzf- && apt-get autoremove --purge -y wget
+RUN apt-get -qq update && apt-get install wget && wget -qO- https://golang.org/`wget -qO- https://golang.org/dl/ | grep -m 1 linux-amd64 | cut -f 4 -d \"` | tar -C /usr/local -xzf- && apt-get autoremove --purge -y wget
