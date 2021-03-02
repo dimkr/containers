@@ -1,4 +1,4 @@
 FROM dimkr/c-dev:focal
 
 RUN apt-get -qq update && apt-get -y install wget gnupg2
-RUN wget -qO- https://apt.llvm.org/llvm-snapshot.gpg.key | apt-key add - && printf "deb http://apt.llvm.org/focal/ llvm-toolchain-focal-11 main\ndeb http://apt.llvm.org/focal/ llvm-toolchain-focal main" > /etc/apt/sources.list.d/llvm.list && printf "Package: *\nPin: origin apt.llvm.org\nPin-Priority: 1001" > /etc/apt/preferences.d/llvm && apt-get -qq update && apt-get -y --allow-downgrades --no-install-recommends install clang-11 llvm-11-dev clang-12 llvm-12-dev && ln -s /usr/bin/clang-11 /usr/local/bin/clang
+RUN wget -qO- https://apt.llvm.org/llvm-snapshot.gpg.key | apt-key add - && printf "deb http://apt.llvm.org/focal/ llvm-toolchain-focal-12 main\ndeb http://apt.llvm.org/focal/ llvm-toolchain-focal main" > /etc/apt/sources.list.d/llvm.list && printf "Package: *\nPin: origin apt.llvm.org\nPin-Priority: 1001" > /etc/apt/preferences.d/llvm && apt-get -qq update && apt-get -y --allow-downgrades --no-install-recommends install clang-12 llvm-12-dev clang-13 llvm-13-dev && ln -s /usr/bin/clang-12 /usr/local/bin/clang
