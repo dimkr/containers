@@ -1,0 +1,48 @@
+name: c-dev
+
+on:
+  push:
+    branches:
+      - master
+  schedule:
+    - cron: '0 0 1 * *'
+  workflow_dispatch:
+    branches:
+      - master
+
+jobs:
+  focal:
+    runs-on: ubuntu-20.04
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+    - name: Log in to GitHub Docker Registry
+      uses: docker/login-action@v1
+      with:
+        registry: ghcr.io
+        username: ${{ github.actor }}
+        password: ${{ secrets.GITHUB_TOKEN }}
+    - name: Build container image
+      uses: docker/build-push-action@v2
+      with:
+        file: c-dev/Dockerfile.${{ github.job }}
+        push: true
+        tags: ghcr.io/${{ github.repository }}/c-dev:${{ github.job }}
+  clang:
+    runs-on: ubuntu-20.04
+    needs: [focal]
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+    - name: Log in to GitHub Docker Registry
+      uses: docker/login-action@v1
+      with:
+        registry: ghcr.io
+        username: ${{ github.actor }}
+        password: ${{ secrets.GITHUB_TOKEN }}
+    - name: Build container image
+      uses: docker/build-push-action@v2
+      with:
+        file: c-dev/Dockerfile.${{ github.job }}
+        push: true
+        tags: ghcr.io/${{ github.repository }}/c-dev:${{ github.job }}
